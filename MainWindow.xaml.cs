@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using MahApps.Metro.Controls;
 
 namespace CRUD
 {
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
@@ -16,6 +17,11 @@ namespace CRUD
             Mostrar_Datos();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAgregar_Click(object sender, RoutedEventArgs e)
         {
             BDTIENDAEntities entidades = new BDTIENDAEntities();
@@ -31,22 +37,16 @@ namespace CRUD
                 {
                     p.PRECIO = int.Parse(TextoPrecio.Text);
                     entidades.PRODUCTO.Add(p);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Formato de precio no válido");
-                }
-                try
-                {
                     entidades.SaveChanges();
                     Mostrar_Datos();
                     MessageBox.Show("Producto Añadido");
                     limpiar_textbox();
                 }
-                catch
+                catch (FormatException)
                 {
-                    MessageBox.Show("Se ha producido algún tipo de error, probablemente con la Base de Datos");
+                    MessageBox.Show("Formato de precio no válido");
                 }
+
             }
         }
 
